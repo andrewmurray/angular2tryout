@@ -11,6 +11,10 @@ export class ProductService {
     constructor(private _http: Http) {
     }
     
+    getProduct(id: number): Observable<IProduct> {
+        return this.getProducts()
+            .map((products: IProduct[]) => products.find(p => p.productId == id));
+    }
     getProducts(): Observable<IProduct[]> {
         return this._http.get(this._productsUrl)
             .map((response: Response) => <IProduct[]>response.json())
